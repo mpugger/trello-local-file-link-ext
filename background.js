@@ -58,7 +58,7 @@ chrome.contextMenus.onClicked.addListener(onClickHandler);
 chrome.runtime.onInstalled.addListener(function(details) {
     chrome.contextMenus.create(
         {
-            'title': 'Paste Local File Location',
+            'title': 'Paste Local File Link',
             'id': 'pasteLocalFileLocationIntoTrello',
             'contexts': ['editable']
         });
