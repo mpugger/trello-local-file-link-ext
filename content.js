@@ -70,3 +70,24 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         insertTextAtCursor(request.data);
     }
 });
+
+// You can add markdown to your cards in the card's description, checklists and comments, as well as in your Trello bio
+// Detect elements that allow markdown and only show the context menu for those elements
+document.addEventListener("mousedown", function(event){
+	var selection = window.getSelection();
+	if (selection.anchorNode != null) 
+	{
+		var classList = selection.anchorNode.classList;
+		if (classList != null) 
+		{
+			if(classList.contains('comment-box') || classList.contains('edit')) {
+				chrome.extension.sendMessage({cmd: "create_menu"});	
+			} else {
+				chrome.extension.sendMessage({cmd: "delete_menu"});
+			}
+		}
+	}
+}, true); 
+
+
+

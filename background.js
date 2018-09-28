@@ -55,11 +55,22 @@ function onClickHandler(info, tab) {
 chrome.contextMenus.onClicked.addListener(onClickHandler);
 
 // Set up the single one item "paste"
-chrome.runtime.onInstalled.addListener(function(details) {
-    chrome.contextMenus.create(
-        {
-            'title': 'Paste Local File Link',
-            'id': 'pasteLocalFileLocationIntoTrello',
-            'contexts': ['editable']
+//chrome.runtime.onInstalled.addListener(function(details) {
+    
+//});
+
+chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+    if(request.cmd == "create_menu") {
+        chrome.contextMenus.removeAll(function() {
+            chrome.contextMenus.create(
+	        {
+	            'title': 'Paste Local File Link',
+	            'id': 'pasteLocalFileLocationIntoTrello',
+	            'contexts': ['editable'],
+				'documentUrlPatterns' : ['https://trello.com/c/*']
+	        });
         });
+    } else if(request.cmd == "delete_menu") {
+        chrome.contextMenus.removeAll();
+    }
 });
