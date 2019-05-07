@@ -44,6 +44,8 @@ function onClickHandler(info, tab) {
     var clipboardContent = getContentFromClipboard();
     if (info.menuItemId === 'pasteLocalFileLocationIntoTrello') 
 	{
+		// Remove quotes
+		clipboardContent = clipboardContent.replace(/^"(.*)"$/, "$1");
 		// turn into file metadata
 		// [c://<file name>](file://c:/file%20name)
 		var link = "[" + clipboardContent.replace(/\\/g, "\\\\") + "](file://" + clipboardContent.replace(/ /g, "%20") + ")";
